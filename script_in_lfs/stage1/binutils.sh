@@ -5,10 +5,9 @@ pushd $LFS/sources
 if [[ ! -d $BUINUTILS ]]; then
     tar -xf $BINUTILS$BINUTILS_SUFFIX
 fi
-cd $BINUTILS
+pushd $BINUTILS
 
 if [[ ! -e .buildstamp ]]; then
-    # TODO: build stamp
     mkdir -v build
     pushd build
     ../configure --prefix=$LFS/tools \
@@ -25,4 +24,5 @@ if [[ ! -e .buildstamp ]]; then
     touch .buildstamp
 fi
 
+popd
 popd
