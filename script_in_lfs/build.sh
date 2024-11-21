@@ -28,6 +28,9 @@ source ~/.bashrc
 
 source variable.sh
 
+export MAKEFLAGs=-j28
 for ((i = 1; i <= 1; i = i + 1)); do
-    source stage$i/stage$i.sh
+    pushd stage$i
+    source stage$i.sh
+    popd
 done

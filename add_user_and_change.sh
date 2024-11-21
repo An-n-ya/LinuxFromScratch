@@ -8,10 +8,10 @@ if ! cat /etc/passwd | grep -q "lfs"; then
     echo "setting passwd for new user lfs:"
     passwd lfs
     chown -v lfs $LFS/{usr{,/*},lib,var,etc,bin,sbin,tools,lib64}
-    ln -s /home/lfs/script_in_lfs script_in_lfs
 fi
 
-sudo rm -rf /tmp/script_in_lfs/ cp -r script_in_lfs /tmp/script_in_lfs
+sudo rm -rf /tmp/script_in_lfs/
+cp -r script_in_lfs /tmp/script_in_lfs
 sudo chown -R lfs /tmp/script_in_lfs
 
 sudo -i -u lfs bash <<EOF

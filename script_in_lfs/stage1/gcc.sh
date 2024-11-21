@@ -4,12 +4,14 @@ pushd $LFS/sources
 
 if [[ ! -d $GCC ]]; then
     tar -xf $GCC$GCC_SUFFIX
+fi
+pushd $GCC
+if [[ ! -d $MPFR ]]; then
     tar -xf ../$MPFR$MPFR_SUFFIX
     tar -xf ../$GMP$GMP_SUFFIX
     tar -xf ../$MPC$MPC_SUFFIX
     set -e '/m64=/s/lib64/lib/' -i.orig gcc/config/i386/t-linux64
 fi
-pushd $GCC
 
 if [[ ! -e .buildstamp ]]; then
     mkdir -v build
@@ -36,6 +38,7 @@ if [[ ! -e .buildstamp ]]; then
     make
     make install
     popd
+    cat gcc/limitx.h gcc/glimits.h gcc/limity.h >$(dirname $($LFS_TGT-gcc -print-libgcc-file-name))/include/limits.h
     touch .buildstamp
 fi
 
