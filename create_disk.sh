@@ -7,7 +7,7 @@ if [[ ! -e rootfs.img ]]; then
 fi
 
 sudo modprobe nbd
-ps -aux | grep -q "rootfs.img" || sudo qemu-nbd -c /dev/nbd0 rootfs.img
+ps -aux | grep -q "/dev/nbd0 rootfs.img" || sudo qemu-nbd -c /dev/nbd0 rootfs.img
 lsblk -f | grep nbd0 | grep -q "ext4" || sudo mkfs.ext4 /dev/nbd0
 df /dev/nbd0 | grep -q "/mnt/lfs" || sudo mount -v -t ext4 /dev/nbd0 $LFS
 
