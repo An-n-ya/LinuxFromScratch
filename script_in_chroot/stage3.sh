@@ -18,7 +18,9 @@ ln -sfv /run/lock /var/lock
 install -dv -m 0750 /root
 install -dv -m 1777 /tmp /var/tmp
 
-ln -sv /proc/self/mounts /etc/mtab
+if [[ ! -e /etc/mtab ]]; then
+    ln -sv /proc/self/mounts /etc/mtab
+fi
 if [[ ! -e /etc/hosts ]]; then
     cat >/etc/hosts <<EOF
 127.0.0.1   localhost $(hostname)
@@ -75,5 +77,20 @@ if [[ ! -e /var/log/btmp ]]; then
     chmod -v 664 /var/log/lastlog
     chmod -v 600 /var/log/btmp
 fi
+
+pushd /bin/script_in_chroot
+set -e
+set -x
+
+source variable.sh
+
+source gettext.sh
+source bison.sh
+source perl.sh
+source python.sh
+source texinfo.sh
+source util_linux.sh
+
+popd
 
 echo "STAGE3 DONE"

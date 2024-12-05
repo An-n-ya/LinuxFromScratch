@@ -9,11 +9,12 @@ pushd $BINUTILS
 
 if [[ ! -e .buildstamp-pass2 ]]; then
     sed '6009s/$add_dir//' -i ltmain.sh
-    mkdir -v build-pass2
+    mkdir -vp build-pass2
     pushd build-pass2
-    ../configure --prefix=$LFS/tools \
-        --with-sysroot=$LFS \
-        --target=$LFS_TGT \
+    ../configure \
+        --prefix=/usr \
+        --build=$(../config.guess) \
+        --host=$LFS_TGT \
         --disable-nls \
         --enable-shared \
         --enable-gprofng=no \
