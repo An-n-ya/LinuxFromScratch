@@ -93,4 +93,9 @@ source util_linux.sh
 
 popd
 
+# cleanup
+rm -rf /usr/share/{info,man,doc}/*
+find /usr/{lib,libexec} -name \*.la -delete
+rm -rf /tools
+
 echo "STAGE3 DONE"
